@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Sectors form</title>
+</head>
+<body>
+<h1>Sectors form</h1>
+
+<div th:if="${success}"
+     th:text="${success}"
+     style="color:#006d2c;margin-top:4px;font-size:.9rem;"></div>
+
+<form th:action="@{/}" th:object="${form}" method="post" novalidate>
+    <div>
+        <label for="name">Name</label>
+        <input id="name" th:field="*{name}" type="text" required>
+        <div th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}"
+             style="color:#b71c1c;margin-top:4px;font-size:.9rem;"></div>
+    </div>
+
+    <div>
+        <label>Sectors</label>
+        <div style="max-height:260px; overflow-y:auto; border:1px solid #ccc; padding:4px; width:360px;">
+            <div th:each="s : ${sectors}"
+                 th:style="'margin-left:' + (${s.depth} * 16) + 'px'">
+                <label style="display:block;">
+                    <input type="checkbox"
+                           th:field="*{sectors}"
+                           th:value="${s.id}">
+                    <span th:text="${s.name}"></span>
+                </label>
+            </div>
+        </div>
+        <div th:if="${#fields.hasErrors('sectors')}"
+             th:errors="*{sectors}"
+             style="color:#b71c1c;margin-top:4px;font-size:.9rem;"></div>
+    </div>
+
+    <div>
+        <label>
+            <input type="checkbox" th:field="*{agree}" required>
+            Agree to terms
+        </label>
+        <div th:if="${#fields.hasErrors('agree')}"
+             th:errors="*{agree}"
+             style="color:#b71c1c;margin-top:4px;font-size:.9rem;"></div>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+</body>
+</html>
