@@ -17,7 +17,7 @@ public class Form {
     private Long id;
     private String name;
     private boolean agree;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "form_sector",
             joinColumns = @JoinColumn(name = "form_id"),
